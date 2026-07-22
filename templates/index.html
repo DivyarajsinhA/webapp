@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Department - Student Records</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8 font-sans">
+
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">B.Tech Student Management System</h1>
+
+        <!-- Add Student Form -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4">Register New Student</h2>
+            <form action="/add" method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <input type="text" name="name" placeholder="Full Name" required class="border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none">
+                <input type="text" name="enrollment_no" placeholder="Enrollment No (e.g., IT202611)" required class="border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none">
+                <select name="branch" required class="border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                    <option value="" disabled selected>Select Branch</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Electronics">Electronics</option>
+                </select>
+                <input type="number" step="0.01" name="cgpa" placeholder="Current CGPA" required class="border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none">
+                <button type="submit" class="md:col-span-4 bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition">Add Record</button>
+            </form>
+        </div>
+
+        <!-- Student Database Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-800 text-white">
+                        <th class="p-4">ID</th>
+                        <th class="p-4">Name</th>
+                        <th class="p-4">Enrollment No</th>
+                        <th class="p-4">Branch</th>
+                        <th class="p-4">CGPA</th>
+                        <th class="p-4 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-4 text-gray-600">{{ student[0] }}</td>
+                        <td class="p-4 font-semibold text-gray-800">{{ student[1] }}</td>
+                        <td class="p-4 text-gray-600">{{ student[2] }}</td>
+                        <td class="p-4 text-gray-600">{{ student[3] }}</td>
+                        <td class="p-4 text-blue-600 font-bold">{{ student[4] }}</td>
+                        <td class="p-4 text-center">
+                            <a href="/delete/{{ student[0] }}" class="text-red-500 hover:text-red-700 font-semibold border border-red-500 hover:bg-red-50 px-3 py-1 rounded transition">Delete</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="p-8 text-center text-gray-500">No student records found. Add a student above.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
